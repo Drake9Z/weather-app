@@ -32,7 +32,7 @@ const WeatherBox = ({temperature, weatherState}) => {
             <span>{weatherState}
             </span>
             
-            <button onClick={setTempFormat} className='weather_button'>Cambiar a F°</button>
+            <button  className='weather_button'>Cambiar a F°</button>
         </div>
     );
 };
