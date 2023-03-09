@@ -7,18 +7,18 @@ const WeatherBox = ({temperature, weatherState}) => {
     function icons () {
         
         const weatherImages = {
-        "clear sky" : 'public/1.svg',
-        "few clouds" : 'public/2.svg' ,
-        "overcast clouds" : 'public/3.svg' ,
-        "broken clouds" : 'public/4.svg' ,
-        "shower rain" : 'public/5.svg' ,
-        "rain" : 'public/6.svg' ,
-        "snow" : 'public/7.svg' ,
-        "mist" : 'public/8.svg' ,
-        "thunderstorm" : 'public/9.svg' 
+        "clear sky" : '/1.svg',
+        "few clouds" : '/2.svg' ,
+        "overcast clouds" : '/3.svg' ,
+        "broken clouds" : '/4.svg' ,
+        "shower rain" : '/5.svg' ,
+        "rain" : '/6.svg' ,
+        "snow" : '/7.svg' ,
+        "mist" : '/8.svg' ,
+        "thunderstorm" : '/9.svg' 
         };
     
-        return weatherImages[weatherState] || "public/5.svg";
+        return weatherImages[weatherState] || "/5.svg";
     };
 
     return (
