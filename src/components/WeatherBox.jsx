@@ -8,13 +8,14 @@ const WeatherBox = ({ city, country, location, temperature, weatherState }) => {
       "overcast clouds": "/3.svg",
       "broken clouds": "/4.svg",
       "shower rain": "/5.svg",
-      rain: "/6.svg",
-      snow: "/7.svg",
-      mist: "/8.svg",
-      thunderstorm: "/9.svg",
+      "rain": "/6.svg",
+      "snow": "/7.svg",
+      "mist": "/8.svg",
+      "thunderstorm": "/9.svg",
+      "light rain": "/8.svg" 
     };
 
-    return weatherImages[weatherState] || "/5.svg";
+    return weatherImages[weatherState.state] || "/5.svg";
   }
 
   console.log(weatherState);
@@ -22,10 +23,10 @@ const WeatherBox = ({ city, country, location, temperature, weatherState }) => {
   return (
     <div className="weather">
       <div className="weather_box">
-        <div>
+        <div className="weather-data">
           <div className="weather_temp">{Math.floor(temperature)}°</div>
-            <p className="data-weather">VIENTO<span>{weatherState.wind}</span></p>
-            <p className="data-weather">NUBES<span>{weatherState.clouds}</span></p>
+            <p className="data-weather">VIENTO<span>{weatherState.wind} m/s</span></p>
+            <p className="data-weather">NUBES<span>{weatherState.clouds} %</span></p>
             <p className="data-weather">PRESIÓN<span>{weatherState.pressure}</span></p>
           <div>
             {location && (
@@ -45,7 +46,7 @@ const WeatherBox = ({ city, country, location, temperature, weatherState }) => {
             src={icons(weatherState.state)}
             alt="weather image"
           />
-          <span className="data-weather">{weatherState.state}</span>
+          <span className="data-status">{weatherState.state}</span>
         </div>
       </div>
       
