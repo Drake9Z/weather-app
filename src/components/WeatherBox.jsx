@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 
 const WeatherBox = ({ city, country, location, temperature, weatherState }) => {
   function icons() {
