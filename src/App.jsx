@@ -7,44 +7,9 @@ function App() {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [temperature, setTemperature] = useState(null);
-  const [weatherState, setWeatherState] = useState("");
-  const [location, setLocation] = useState({ lat: "", lon: "" });
-  const [tempFormat, setTempFormat] = useState ("");
-
-  const api = {
-    base: "https://api.openweathermap.org/data/2.5/weather",
-    key: "67e31a8c7bec84e1d7e2ba27cdb34112",
-  };
-
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          axios
-            .get(
-              `${api.base}?lat=${latitude}&lon=${longitude}&units=metric&appid=${api.key}`
-              )
-              .then((response) => {
-                setLocation({
-                  city: response.data.name,
-                  country: response.data.sys.country,
-                });
-                setTemperature(response.data.main.temp);
-                setWeatherState(response.data.weather[0].description);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    } else {
-      console.log("Geolocation is not supported by this browser.");
-    }
-  }, []);
+  const [weatherState, setWeatherState] = useState({state:"", wind:0, clouds:0, pressure:0});
+  const [location, setLocation] = useState({lat:"",lon:""});
+  const [tempFormat, setTempFormat] = useState("");
 
   const dateBuilder = (d) => {
     const months = [
@@ -70,6 +35,47 @@ function App() {
 
     return `${day} ${date} ${month} ${year} `;
   };
+
+  const api = {
+    base: "https://api.openweathermap.org/data/2.5/weather",
+    key: "67e31a8c7bec84e1d7e2ba27cdb34112",
+  };
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          axios
+            .get(
+              `${api.base}?lat=${latitude}&lon=${longitude}&units=metric&appid=${api.key}`
+            )
+            .then((response) => {
+              setLocation({
+                city: response.data.name,
+                country: response.data.sys.country,
+              });
+              setTemperature(response.data.main.temp);
+              setWeatherState(response.data.weather[0].description);
+              setWeatherState({
+                state: response.data.weather[0].description,
+                wind: response.data.wind.speed,
+                clouds: response.data.clouds.all,
+                pressure: response.data.main.pressure
+              });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  }, []);
 
   const getCity = () => {
     axios
@@ -104,11 +110,30 @@ function App() {
       });
   };
 
+  const getLocation = () => {
+    axios
+      .get(`${api.base}?q=${city}&units=metric&appid=${api.key}`)
+      .then((response) => {
+        setLocation({
+          city: response.data.name,
+          country: response.data.sys.country,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const getWeatherState = () => {
     axios
       .get(`${api.base}?q=${city}&units=metric&appid=${api.key}`)
       .then((response) => {
-        setWeatherState(response.data.weather[0].description);
+        setWeatherState({
+          state: response.data.weather[0].description,
+          wind: response.data.wind.speed,
+          clouds: response.data.clouds.all,
+          pressure: response.data.main.pressure
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -121,19 +146,28 @@ function App() {
       getWeatherState(city);
       getCity(city);
       getCountry(city);
+      getLocation(city)
     }
   };
-  
 
   return (
     <div className="App">
       <header>
-        <h1>Weather app</h1>
+        <div className="title-button">
+          <h1>Weather app</h1>
+          <label className="switch">
+            <input type="checkbox" />
+            <span className="slider"></span>
+          </label>
+        </div>
         <div className="searcher-container">
+          <div className="searcher-icon">
+            <i className="bx bx-search"></i>
+          </div>
           <input
             className="searcher-input"
             type="text"
-            placeholder="Search location ..."
+            placeholder="Buscar una ciudad"
             value={city}
             onChange={(event) => setCity(event.target.value)}
             onKeyDown={handleKeyDown}
@@ -141,21 +175,18 @@ function App() {
         </div>
       </header>
       <main>
-        {location && (
-          <div className="location-box">
-            <div className="location">{{city} ? `${location.city}, ${location.country}` : {country}}</div>
-            <div className="date">{dateBuilder(new Date())}</div>
-          </div>
-        )}
-        <WeatherBox 
-        temperature={temperature}
-        weatherState={weatherState}
-        tempFormat={tempFormat}
+        <WeatherBox
+          city={city}
+          country={country}
+          location={location}
+          temperature={temperature}
+          weatherState={weatherState}
+          tempFormat={tempFormat}
         />
       </main>
+      <div className="date">{dateBuilder(new Date())}</div>
     </div>
   );
 }
-
 
 export default App;

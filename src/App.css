@@ -1,2 +1,237 @@
-#root {}
+#root {
+  font-family: "Cambay", sans-serif;
+  font-family: "Lato", sans-serif;
+}
 
+.App {
+  min-height: 100vh;
+  background-image: radial-gradient(#d5f3ff, #51b4e8);
+  offset: 0px, 4.85px, rgba(0, 0, 0, 0.25);
+  background-size: cover;
+  background-position: bottom;
+  transition: 0.4 ease-out;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  width: 100%;
+}
+
+.title-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 50px;
+  color: white;
+  padding: 1rem;
+  margin-top: 3rem;
+}
+
+.switch {
+  --secondary-container: white;
+  --primary: #51b4e8;
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 3.7em;
+  height: 2em;
+}
+
+.switch input {
+  display: none;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  transition: 0.2s;
+  border-radius: 30px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.4em;
+  width: 1.4em;
+  border-radius: 20px;
+  left: 0.2em;
+  bottom: 0em;
+  background-color: #362a84;
+  transition: 0.4s;
+}
+
+input:checked + .slider::before {
+  background-color: var(--primary);
+}
+
+input:checked + .slider {
+  background-color: var(--secondary-container);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px var(--secondary-container);
+}
+
+input:checked + .slider:before {
+  transform: translateX(1.2em);
+}
+
+.searcher-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  width: 80%;
+  max-width: 450px;
+  margin: 2rem auto;
+}
+
+.searcher-container {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 80%;
+  padding: 1rem;
+  border: none;
+  background-color: #51b4e8;
+  color: white;
+  border-radius: 1rem;
+  box-shadow: inset 0px 12px 10px -10px #ffffff;
+}
+
+.searcher-icon {
+  font-size: 2.5rem;
+}
+
+.searcher-input {
+  background-color: transparent;
+  appearance: none;
+  border: none;
+  width: 90%;
+  height: 30px;
+  margin: 0 1rem;
+  padding: 0;
+  color: white;
+  font-size: 19px;
+
+}
+
+.searcher-input:focus::placeholder {
+  opacity: 0.7;
+}
+
+.searcher-container .searcher-input:focus {
+  border: none;
+  appearance: none;
+  outline: none;
+}
+
+.weather {
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.weather_box {
+  clip-path: polygon(
+    16% 3%,
+    95% 23%,
+    97% 25%,
+    99% 28%,
+    100% 32%,
+    100% 100%,
+    0 100%,
+    0% 4%,
+    5% 1%,
+    0% 0%
+  );
+  display: flex;
+  margin: 3rem auto;
+  max-width: 400px;
+  background-image: linear-gradient(#e5f2ff, #d5f3ff);
+
+  width: 90%;
+  border-radius: 36px;
+  padding: 1.5rem 0.6rem 2rem;
+  font-size: 10rem;
+  position: relative;
+}
+
+.weather_image {
+  transform: scale(0.6);
+  position: absolute;
+  right: -30px;
+  top: -40px;
+  z-index: 999;
+}
+
+.weather_temp {
+  color: #026EED;
+  font-size: 80px;
+  font-weight: 500;
+}
+
+.location {
+  color: #026EED;
+  font-size: 19px;
+  font-family: "Lato", sans-serif;
+  font-weight: bolder;
+  text-align: center;
+  margin: 2rem 0 1rem 0;
+}
+.data-weather{
+  font-size: 14px;
+  color: #026EED;
+  font-weight: 600;
+  margin: 4px 10px;
+}
+
+.weather-box_c2{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.weather_button {
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 200px;
+  border-radius: 16px;
+  padding: 1.5rem 0.4rem;
+  position: relative;
+  color: #fff;
+  font-family: "Lato", sans-serif;
+  font-size: 2.2rem;
+  font-weight: 300;
+  font-style: italic;
+  text-align: center;
+  text-shadow: 2px 2px rgba(50, 50, 70, 0.5);
+}
+
+.date {
+  color: #026EED;
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  font-style: italic;
+  text-align: center;
+  padding: 5rem 0 0;
+}
+
+::placeholder {
+  color: white;
+  font-size: 2rem;
+}
